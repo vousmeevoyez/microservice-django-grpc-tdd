@@ -1,0 +1,47 @@
+version : '3.7'
+services:
+        django:
+                env_file: .env
+                build: 
+                  context: .
+                  dockerfile: ./dockerfiles/django/Dockerfile
+                  args:
+                    dependencies: ${ENV}
+                image: api
+                command: /start
+                depends_on:
+                - postgres
+                - rabbitmq
+                restart: unless-stopped
+                ports:
+                - 8000:8000
+
+        postgres:
+                env_file: .env
+                image: postgres:alpine
+                volumes:
+                - "persist_volume:/var/lib/postgresql/data"
+                restart: unless-stopped
+                healthcheck:
+                  test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}"]
+                  interval: 30s
+                  timeout: 30s
+                  retries: 3
+
+        rabbitmq:
+                env_file: .env
+                image: rabbitmq:3-management
+                restart: unless-stopped
+
+        celery:
+                env_file: .env
+                image: api
+                command: celery -A api worker -l info
+                depends_on:
+                - django
+                - rabbitmq
+                - postgres
+                restart: unless-stopped
+
+volumes:
+        persist_volume:
