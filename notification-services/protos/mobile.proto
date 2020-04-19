@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service MobileServices{
+	rpc SendPushNotification(SendPushNotificationRequest) returns (SendPushNotificationResponse) {}
+}
+
+message SendPushNotificationRequest{
+	string device_token = 1;
+	string notif_type = 2;
+	string product_type = 3;
+	string content = 4;
+}
+
+message SendPushNotificationResponse{
+	string status = 1;
+}

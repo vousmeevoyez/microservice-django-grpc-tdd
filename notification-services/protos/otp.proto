@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+service OTPServices{
+	rpc SendSMSOtp(SendSMSOtpRequest) returns (SendSMSOtpResponse) {}
+}
+
+message SendSMSOtpRequest{
+	string phone_ext = 1;
+	string phone_no = 2;
+	string content = 3;
+}
+
+message SendSMSOtpResponse{
+	string status = 1;
+}
