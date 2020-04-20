@@ -16,6 +16,8 @@ services:
                 networks:
                 - internal
                 - kong-net
+                ports:
+                - ${DJANGO_PORT}:8000
 
         postgres:
                 env_file: .env

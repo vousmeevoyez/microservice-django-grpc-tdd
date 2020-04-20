@@ -21,10 +21,10 @@ class OtpService:
     def generate_and_send(self):
         """ create otp and entry and send it via celery task"""
         otp = Otp(user=self.user, otp_type=self.otp_type)
-        otp.generate()
+        otp_code = otp.generate()
         send_otp.delay(phone_ext=otp.user.phone_ext,
                        phone_no=otp.user.phone_no,
-                       otp_code=otp.code)
+                       otp_code=otp_code)
         return otp.id
 
     def resend(self):

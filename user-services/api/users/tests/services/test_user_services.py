@@ -2,6 +2,7 @@ import pytest
 from uuid import uuid4
 from unittest.mock import patch
 
+from django.contrib.auth import get_user_model
 from django.db import DatabaseError
 
 from api.users.services.users import (create_user, verify_user, resend_user_otp)
@@ -23,6 +24,9 @@ def test_create_user_failed(mock_user, registration_payload):
     mock_user.objects.create.side_effect = DatabaseError
     with pytest.raises(FailedRegistrationException):
         create_user(**registration_payload)
+    # make sure no user is created
+    User = get_user_model()
+    assert len(User.objects.all()) == 0
 
 
 @pytest.mark.django_db

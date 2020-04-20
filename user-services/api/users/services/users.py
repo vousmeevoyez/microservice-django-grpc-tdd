@@ -32,10 +32,9 @@ def create_user(username, password, email, phone_ext, phone_no, first_name,
                                   device_id=device_id,
                                   user=user)
             Shop.objects.create(name=shop_name, user=user)
+            otp_id = OtpService(user).generate_and_send()
         except DatabaseError as error:
             raise FailedRegistrationException(error)
-        else:
-            otp_id = OtpService(user).generate_and_send()
     return user, otp_id
 
 

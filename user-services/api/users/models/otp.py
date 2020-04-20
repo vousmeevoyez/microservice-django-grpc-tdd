@@ -58,3 +58,4 @@ class Otp(BaseModel):
         self.valid_until = datetime.utcnow() +\
             timedelta(minutes=valid_until)
         self.save()
+        return otp_code
