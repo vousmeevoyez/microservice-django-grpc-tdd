@@ -1,6 +1,6 @@
 version : '3.7'
 services:
-        django:
+        user_services:
                 env_file: .env
                 build: 
                   context: .
@@ -43,7 +43,7 @@ services:
                 image: api
                 command: celery -A config.celery_app worker -l info
                 depends_on:
-                - django
+                - user_services
                 - rabbitmq
                 - postgres
                 restart: unless-stopped

@@ -1,6 +1,6 @@
 version : '3.7'
 services:
-  notif:
+  notif_services:
     env_file: .env
     build: .
     command: python manage.py run
