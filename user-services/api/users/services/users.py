@@ -28,6 +28,7 @@ def create_user(username, password, email, phone_ext, phone_no, first_name,
                                        middle_name=middle_name,
                                        last_name=last_name)
             user.set_password(password)
+            user.save()
             Device.objects.create(platform=platform,
                                   device_id=device_id,
                                   user=user)
