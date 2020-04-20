@@ -25,10 +25,12 @@ class JWTToken:
         response = CLIENT.create_jwt_credential(self.user.consumer_id)
         # current set expiration to 0
         current_exp = 0  # means infnite
+        current_nbf = 0  # means infnite
         algorithm = "HS256"
         # accepted jwt payload by kong
         payload = {
             "exp": current_exp,
+            "nbf": current_nbf,
             "iss": response["key"],
             "iat": response["created_at"],
             "sub": str(self.user.id),
