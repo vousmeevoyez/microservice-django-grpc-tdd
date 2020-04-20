@@ -27,3 +27,4 @@ COPY --from=base /root/.cache /root/.cache
 RUN pip install -r ${dependencies}.txt
 # copy again
 COPY --from=base /app ./
+RUN make proto

@@ -1,8 +1,13 @@
 version : '3.7'
 services:
-        notif_grpc:
-                env_file: .env
-                build: .
-                command: python manage.py run
-                ports:
-                - ${GRPC_PORT}:5001
+  notif:
+    env_file: .env
+    build: .
+    command: python manage.py run
+    ports:
+    - ${GRPC_PORT}:5000
+    networks:
+    - kong-net
+networks:
+  kong-net:
+    external: true
