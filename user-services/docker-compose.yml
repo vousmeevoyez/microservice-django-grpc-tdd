@@ -13,8 +13,9 @@ services:
                 - postgres
                 - rabbitmq
                 restart: unless-stopped
-                ports:
-                - 8000:8000
+                networks:
+                - internal
+                - kong-net
 
         postgres:
                 env_file: .env
@@ -27,21 +28,32 @@ services:
                   interval: 30s
                   timeout: 30s
                   retries: 3
+                networks:
+                - internal
 
         rabbitmq:
                 env_file: .env
                 image: rabbitmq:3-management
                 restart: unless-stopped
+                networks:
+                - internal
 
         celery:
                 env_file: .env
                 image: api
-                command: celery -A api worker -l info
+                command: celery -A config.celery_app worker -l info
                 depends_on:
                 - django
                 - rabbitmq
                 - postgres
                 restart: unless-stopped
+                networks:
+                - internal
+                - kong-net
 
 volumes:
         persist_volume:
+networks:
+  internal:
+  kong-net:
+    external: true
