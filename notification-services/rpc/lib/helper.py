@@ -61,6 +61,7 @@ def send_otp(phone_ext, phone_no, content=None):
     if ENVIRONMENT == "DEV":
         # prepare message
         message = generate_sms_template("OTP", content)
+        print(message)
         bot = telebot.TeleBot(TELEGRAM["TOKEN"])
         try:
             bot.send_message(TELEGRAM["CHAT_ID"], message)
