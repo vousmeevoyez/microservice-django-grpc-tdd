@@ -9,6 +9,7 @@ from api.users.services import OtpService
 
 from api.users.exceptions import (FailedRegistrationException,
                                   UserNotFoundException)
+from api.users.tasks import create_kong_consumer
 
 User = get_user_model()
 
@@ -43,9 +44,12 @@ def verify_user(otp_id, otp_code):
     # verify otp
     otp = OtpService.verify(otp_id, otp_code)
     # if valid we activate the user
-    user = User.objects.get(id=otp.user.id)
+    user_id = otp.user.id
+    user = User.objects.get(id=user_id)
     user.is_active = True
     user.save()
+    # after that we trigger generate kong consumer
+    create_kong_consumer.delay(user_id)
 
 
 def resend_user_otp(user_id):
