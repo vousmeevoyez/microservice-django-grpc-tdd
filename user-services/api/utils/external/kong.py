@@ -4,7 +4,10 @@
 from django.conf import settings
 
 PREFIX = "admin-api"
-ENDPOINTS = {"CONSUMERS": PREFIX + "/consumers/", "JWT": "/consumers/{}/jwt"}
+ENDPOINTS = {
+    "CONSUMERS": PREFIX + "/consumers/",
+    "JWT": PREFIX + "/consumers/{}/jwt"
+}
 BASE_URL = settings.EXTERNALS["KONG"]["BASE_URL"]
 
 
