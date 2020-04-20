@@ -33,7 +33,7 @@ class JWTToken:
             "iat": response["created_at"],
             "sub": str(self.user.id),
         }
-        return jwt.encode(payload, response["key"], algorithm)
+        return jwt.encode(payload, response["secret"], algorithm)
 
     def remove(self):
         """ Remove jwt token here """
