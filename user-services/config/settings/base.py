@@ -68,6 +68,7 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = ["rest_framework", "django_celery_results"]
 
 LOCAL_APPS = [
+    "api.auths",
     "api.users",
     # Your stuff: custom apps go here
 ]

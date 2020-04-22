@@ -5,8 +5,8 @@ from random import randint
 from uuid import uuid4
 from datetime import timedelta
 
-from factory import (Sequence, LazyFunction, LazyAttribute, DjangoModelFactory,
-                     Faker, fuzzy, SubFactory, post_generation)
+from factory import (LazyFunction, DjangoModelFactory, Faker, fuzzy, SubFactory,
+                     post_generation)
 
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -72,14 +72,3 @@ class ShopFactory(DjangoModelFactory):
 
     class Meta:
         model = Shop
-
-
-class OtpFactory(DjangoModelFactory):
-
-    user = SubFactory(UserFactory)
-    otp_type = fuzzy.FuzzyChoice(OTP_TYPES)
-    code = LazyFunction(get_otp_code)
-    valid_until = LazyFunction(get_valid_until)
-
-    class Meta:
-        model = Otp

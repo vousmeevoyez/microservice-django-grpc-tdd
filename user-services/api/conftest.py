@@ -1,8 +1,8 @@
 import pytest
 from factory import build
 
-from api.users.tests.factories import (UserFactory, DeviceFactory, ShopFactory,
-                                      OtpFactory)
+from api.users.tests.factories import (UserFactory, DeviceFactory, ShopFactory)
+from api.auths.tests.factories import OtpFactory
 
 
 @pytest.fixture(autouse=True)
@@ -31,9 +31,11 @@ def device():
 def shop():
     return ShopFactory()
 
+
 @pytest.fixture
 def otp():
     return OtpFactory()
+
 
 @pytest.fixture
 def registration_payload():
