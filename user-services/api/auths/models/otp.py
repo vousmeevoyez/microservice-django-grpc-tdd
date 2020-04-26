@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.db.models import (CASCADE, BooleanField, CharField, DateTimeField,
                               ForeignKey)
-from api.auths.models.base import BaseModel
+from api.utils.reusable import BaseModel
 from api.auths.choices import OTP_TYPES
 
 User = get_user_model()
@@ -40,7 +40,7 @@ class Otp(BaseModel):
             code += digits[floor(random() * 10)]
         return code
 
-    def _is_available(self, otp_code):
+    def _is_available(self, hashed_otp_code):
         """
             Check does this OTP Code already is available and currently not
             been used before
@@ -48,16 +48,17 @@ class Otp(BaseModel):
             params:
                 otp_code : str
         """
-        hashed_otp_code = make_password(otp_code)
         # make sure this no currently not used and generated before
+        is_available = True
         otp = Otp.objects.filter(user=self.user,
                                  code=hashed_otp_code,
                                  otp_type=self.otp_type,
                                  is_verified=False,
                                  valid_until__gte=datetime.utcnow()).first()
         if otp is not None:
-            return None
-        return hashed_otp_code
+            is_available = False
+
+        return is_available
 
     def generate(self, valid_until=5):
         """
@@ -68,12 +69,14 @@ class Otp(BaseModel):
                     how long otp code should be valid
         """
         is_not_generated = False
-        while is_not_generated is False:
+        while is_not_generated is not True:
             otp_code = self._generate_code()
-            hashed_otp_code = self._is_available(otp_code)
-            if hashed_otp_code is not None:
-                break
+            hashed_otp_code = make_password(otp_code)
 
+            if self._is_available:
+                break
+            # end if
+        # end whil
         self.code = hashed_otp_code
         self.valid_until = datetime.utcnow() +\
             timedelta(minutes=valid_until)

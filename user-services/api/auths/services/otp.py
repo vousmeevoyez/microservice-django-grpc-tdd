@@ -54,7 +54,7 @@ class OtpService:
         return otp_id
 
     def verify(self, otp_id, otp_code):
-        """ create otp and entry and send it via celery task"""
+        """ validate current otp code """
         otp = Otp.objects.filter(id=otp_id,
                                  is_verified=False,
                                  valid_until__gte=datetime.utcnow()).first()

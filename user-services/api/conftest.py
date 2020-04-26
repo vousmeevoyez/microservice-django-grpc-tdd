@@ -5,11 +5,6 @@ from api.users.tests.factories import (UserFactory, DeviceFactory, ShopFactory)
 from api.auths.tests.factories import OtpFactory
 
 
-@pytest.fixture(autouse=True)
-def media_storage(settings, tmpdir):
-    settings.MEDIA_ROOT = tmpdir.strpath
-
-
 @pytest.fixture
 def api_client():
     from rest_framework.test import APIClient
@@ -34,7 +29,7 @@ def shop():
 
 @pytest.fixture
 def otp():
-    return OtpFactory()
+    return OtpFactory(is_register=True)
 
 
 @pytest.fixture

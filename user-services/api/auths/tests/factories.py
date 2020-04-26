@@ -5,7 +5,7 @@ from random import randint
 from uuid import uuid4
 from datetime import timedelta
 
-from factory import (LazyFunction, DjangoModelFactory, fuzzy, SubFactory)
+from factory import (LazyFunction, DjangoModelFactory, fuzzy, SubFactory, Trait)
 
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -30,9 +30,12 @@ def get_valid_until():
 class OtpFactory(DjangoModelFactory):
 
     user = SubFactory(UserFactory)
-    otp_type = fuzzy.FuzzyChoice(OTP_TYPES)
     code = LazyFunction(get_otp_code)
     valid_until = LazyFunction(get_valid_until)
 
     class Meta:
         model = Otp
+
+    class Params:
+        is_register = Trait(otp_type=OTP_TYPES[0][0])
+        is_forgot_password = Trait(otp_type=OTP_TYPES[1])

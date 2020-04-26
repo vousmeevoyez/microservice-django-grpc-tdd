@@ -1,18 +1,8 @@
 """
     User Task
 """
-from django.conf import settings
-from django.contrib.auth import get_user_model
-import grpc
-
 from config import celery_app
-
-from api.utils.utility import encode_content
-from api.utils.external import build_kong_client
-from api.utils.rpc import otp_pb2, otp_pb2_grpc
-from api.utils.exceptions import RemoteCallException
-
-
+'''
 @celery_app.task()
 def send_otp(phone_no, phone_ext, otp_code):
     """ send otp via celery so it can safely retried """
@@ -46,3 +36,4 @@ def create_kong_consumer(user_id):
         user = user_model.objects.get(id=user_id)
         user.consumer_id = response["id"]
         user.save()
+'''

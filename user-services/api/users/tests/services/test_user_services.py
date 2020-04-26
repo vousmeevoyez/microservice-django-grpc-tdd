@@ -5,10 +5,10 @@ from unittest.mock import patch
 from django.contrib.auth import get_user_model
 from django.db import DatabaseError
 
-from api.users.services.users import (create_user, verify_user, resend_user_otp)
+from api.users.services.users import (create_user, verify_user)
 from api.users.exceptions import (FailedRegistrationException,
-                                  InvalidOtpException, OtpNotFoundException,
                                   UserNotFoundException)
+from api.auths.exceptions import InvalidOtpException
 
 
 @pytest.mark.django_db
@@ -40,15 +40,3 @@ def test_verify_user(otp):
 def test_verify_user_wrong_otp(otp):
     with pytest.raises(InvalidOtpException):
         verify_user(otp.id, "123123123")
-
-
-@pytest.mark.django_db
-def test_resend_user_otp_not_found():
-    with pytest.raises(UserNotFoundException):
-        resend_user_otp(str(uuid4()))
-
-
-@pytest.mark.django_db
-def test_resend_user_otp(user):
-    otp_id = resend_user_otp(user.id)
-    assert otp_id

@@ -6,10 +6,17 @@ from rest_framework.serializers import (Serializer, ModelSerializer, CharField,
                                         ChoiceField, RegexField)
 from django.contrib.auth import get_user_model
 
-from .choices import SUPPORTED_PLATFORMS
-from .models import (Device, Shop)
+from api.users.choices import SUPPORTED_PLATFORMS
+from api.users.models import (Device, Shop, Profile)
 
 User = get_user_model()
+
+
+class ProfileSerializer(ModelSerializer):
+
+    class Meta:
+        model = Profile
+        exclude = ["is_active", "user"]
 
 
 class UserRegistrationSerializer(ModelSerializer):
@@ -21,9 +28,8 @@ class UserRegistrationSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = [
-            "username", "phone_ext", "phone_no", "email", "first_name",
-            "middle_name", "last_name", "password", "shop_name", "device_id",
-            "platform"
+            "phone_ext", "phone_no", "shop_name", "device_id", "platform",
+            "password"
         ]
 
 
@@ -45,6 +51,7 @@ class UserSerializer(ModelSerializer):
 
     shops = ShopSerializer(many=True)
     devices = DeviceSerializer(many=True)
+    profile = ProfileSerializer()
 
     class Meta:
         model = User

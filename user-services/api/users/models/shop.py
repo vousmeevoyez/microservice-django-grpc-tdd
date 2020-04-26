@@ -9,7 +9,7 @@ from django.db.models import (
     CharField,
     ForeignKey
 )
-from .base import BaseModel
+from api.utils.reusable import BaseModel
 
 user = get_user_model()
 

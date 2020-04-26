@@ -1,11 +1,14 @@
 from django.db.models import (Model, CASCADE, SET_NULL, CharField,
                               DateTimeField, EmailField, URLField, ImageField,
                               BooleanField, DecimalField, UUIDField,
-                              IntegerField)
+                              IntegerField, OneToOneField)
 
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from .base import BaseModel
+
+from api.utils.reusable import BaseModel
 
 USER_TYPES = (("MERCHANT", "Merchant"), ("ADMIN", "Admin"))
 
@@ -43,12 +46,8 @@ class UserManager(BaseUserManager):
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     """ Extend django base user and add user_type """
     username = CharField(max_length=100, unique=True)
-    email = EmailField(unique=True)
     phone_ext = CharField(max_length=3, blank=True)
     phone_no = CharField(max_length=16, unique=True, blank=True)
-    first_name = CharField(max_length=100, blank=True)
-    middle_name = CharField(max_length=100, blank=True)
-    last_name = CharField(max_length=100, blank=True)
     user_type = CharField(choices=USER_TYPES,
                           default=USER_TYPES[0][0],
                           max_length=32)
@@ -59,4 +58,25 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = "username"
-    REQUIRED_FIELDS = ["phone_ext", "phone_no", "first_name", "last_name"]
+    REQUIRED_FIELDS = ["phone_ext", "phone_no"]
+
+    def save(self, *args, **kwargs):
+        # override default save so we able to set username from phone_ext +
+        # phone_no
+        self.username = self.phone_ext + self.phone_no
+        super().save(*args, **kwargs)
+
+
+class Profile(BaseModel):
+    """ create user profile """
+    user = OneToOneField(User, on_delete=CASCADE)
+    first_name = CharField(max_length=100, blank=True)
+    middle_name = CharField(max_length=100, blank=True)
+    last_name = CharField(max_length=100, blank=True)
+    email = EmailField(blank=True)
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        """ trigger creating user profile when user registered"""
+        if created:
+            Profile.objects.create(user=instance)

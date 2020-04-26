@@ -22,7 +22,7 @@ def test_login_api_success(mock_request, api_client, user,
     mock_request.return_value.json.return_value =\
         create_jwt_credential_response
 
-    url = reverse("user-login")
+    url = reverse("auth-login")
     auth_payload = {"username": user.username, "password": "password"}
     response = api_client.post(url, auth_payload, format="json")
     assert response.status_code == 200
@@ -31,7 +31,7 @@ def test_login_api_success(mock_request, api_client, user,
 
 @pytest.mark.django_db
 def test_login_api_failed(api_client, user):
-    url = reverse("user-login")
+    url = reverse("auth-login")
     auth_payload = {"username": "random-username", "password": "password"}
     response = api_client.post(url, auth_payload, format="json")
     assert response.status_code == 401
@@ -43,7 +43,7 @@ def test_logout_success(mock_request, api_client, user):
 
     mock_request.return_value.status_code.return_value == 204
 
-    url = reverse("user-logout")
+    url = reverse("auth-logout")
     response = api_client.post(url,
                                None,
                                format="json",
