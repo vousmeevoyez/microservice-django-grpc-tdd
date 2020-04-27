@@ -41,7 +41,7 @@ def test_update_user_password_api(api_client, user):
     payload = {
         "current_password": "password",
         "new_password": "newpassword",
-        "confirm_password": "newpassword"
+        "confirm_password": "newpassword",
     }
     response = api_client.put(url, payload, format="json", headers=headers)
     assert response.status_code == 204

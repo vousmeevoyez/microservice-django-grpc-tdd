@@ -9,15 +9,17 @@ from django.contrib.auth.hashers import check_password
 from api.auths.models import Otp
 
 from api.auths.tasks import send_otp
-from api.auths.exceptions import (OtpNotFoundException, PendingOtpException,
-                                  InvalidOtpException)
-from api.users.exceptions import (UserNotFoundException)
+from api.auths.exceptions import (
+    OtpNotFoundException,
+    PendingOtpException,
+    InvalidOtpException,
+)
+from api.users.exceptions import UserNotFoundException
 
 User = get_user_model()
 
 
 class OtpService:
-
     def __init__(self, user=None, user_id=None, otp_type="REGISTER"):
         self.user = user
         # if user_id is passed we convert it into user
@@ -34,17 +36,17 @@ class OtpService:
         """ create otp and entry and send it via celery task"""
         otp = Otp(user=self.user, otp_type=self.otp_type)
         otp_code = otp.generate()
-        send_otp.delay(phone_ext=otp.user.phone_ext,
-                       phone_no=otp.user.phone_no,
-                       otp_code=otp_code)
+        send_otp.delay(
+            phone_ext=otp.user.phone_ext, phone_no=otp.user.phone_no, otp_code=otp_code
+        )
         return otp.id
 
     def resend(self):
         """ function to resend otp the only differences we add time validation as
         long there's pending one we prevent it"""
-        otp = Otp.objects.filter(user=self.user,
-                                 is_verified=False,
-                                 valid_until__gte=datetime.utcnow()).first()
+        otp = Otp.objects.filter(
+            user=self.user, is_verified=False, valid_until__gte=datetime.utcnow()
+        ).first()
 
         if otp is not None:
             raise PendingOtpException
@@ -55,9 +57,9 @@ class OtpService:
 
     def verify(self, otp_id, otp_code):
         """ validate current otp code """
-        otp = Otp.objects.filter(id=otp_id,
-                                 is_verified=False,
-                                 valid_until__gte=datetime.utcnow()).first()
+        otp = Otp.objects.filter(
+            id=otp_id, is_verified=False, valid_until__gte=datetime.utcnow()
+        ).first()
         if otp is None:
             raise OtpNotFoundException
 

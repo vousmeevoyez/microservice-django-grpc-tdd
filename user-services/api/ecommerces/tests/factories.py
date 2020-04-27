@@ -3,8 +3,15 @@
 """
 from faker import Faker
 
-from factory import (LazyFunction, DjangoModelFactory, fuzzy, SubFactory, Trait,
-                     Iterator, RelatedFactoryList)
+from factory import (
+    LazyFunction,
+    DjangoModelFactory,
+    fuzzy,
+    SubFactory,
+    Trait,
+    Iterator,
+    RelatedFactoryList,
+)
 
 from django.utils import timezone
 from django.contrib.auth import get_user_model
@@ -29,7 +36,8 @@ class StoreFactory(DjangoModelFactory):
     user = SubFactory(UserFactory)
     name = LazyFunction(generate_store_name)
     platform = RelatedFactoryList(
-        "api.ecommerces.tests.factories.StorePlatformFactory", "store", size=2)
+        "api.ecommerces.tests.factories.StorePlatformFactory", "store", size=2
+    )
 
     class Meta:
         model = Store

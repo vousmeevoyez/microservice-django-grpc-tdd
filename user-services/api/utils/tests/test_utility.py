@@ -12,8 +12,9 @@ def test_remote_calL_success(mock_request):
     mock_request.return_value.status_code = 200
     mock_request.return_value.json.return_value = {"something": "returned"}
 
-    status_code, response = RemoteCall().execute("POST", "http://some-url",
-                                                 {"hello": "world!"})
+    status_code, response = RemoteCall().execute(
+        "POST", "http://some-url", {"hello": "world!"}
+    )
     assert status_code == 200
     assert response["something"] == "returned"
 

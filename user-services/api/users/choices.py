@@ -3,6 +3,4 @@ SUPPORTED_PLATFORMS = (
     ("WEB", "Web"),
 )
 
-OTP_TYPES = (
-    ("REGISTER", "Register"),
-)
+OTP_TYPES = (("REGISTER", "Register"),)

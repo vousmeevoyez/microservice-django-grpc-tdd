@@ -2,8 +2,12 @@
     Serializers
     _____________________
 """
-from rest_framework.serializers import (Serializer, CharField, RegexField,
-                                        ValidationError)
+from rest_framework.serializers import (
+    Serializer,
+    CharField,
+    RegexField,
+    ValidationError,
+)
 
 
 class LoginSerializer(Serializer):

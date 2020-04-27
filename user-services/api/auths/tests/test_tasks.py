@@ -33,8 +33,7 @@ def test_send_otp_failed(mock_rpc):
 
 @pytest.mark.django_db
 @patch("requests.request")
-def test_create_kong_consumer_success(mock_request, create_consumer_response,
-                                      user):
+def test_create_kong_consumer_success(mock_request, create_consumer_response, user):
     """ mock celery task succeed when creating kong consumer """
     mock_request.return_value.status_code.return_value = 201
     mock_request.return_value.json.return_value = create_consumer_response
@@ -49,8 +48,7 @@ def test_create_kong_consumer_success(mock_request, create_consumer_response,
 
 @pytest.mark.django_db
 @patch("api.auths.tasks.build_kong_client")
-def test_create_kong_consumer_failed(mock_request, create_consumer_response,
-                                     user):
+def test_create_kong_consumer_failed(mock_request, create_consumer_response, user):
     """ mock celery task failed when creating kong comsunmer """
     mock_request.return_value.create_consumer.side_effect = RemoteCallException
 

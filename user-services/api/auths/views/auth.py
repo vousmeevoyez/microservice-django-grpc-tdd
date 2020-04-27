@@ -5,9 +5,13 @@ from rest_framework.status import HTTP_204_NO_CONTENT, HTTP_202_ACCEPTED
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from api.auths.serializers import (LoginSerializer, ForgotPasswordSerializer)
-from api.auths.services.auth import (login, logout, request_reset_password,
-                                     reset_password)
+from api.auths.serializers import LoginSerializer, ForgotPasswordSerializer
+from api.auths.services.auth import (
+    login,
+    logout,
+    request_reset_password,
+    reset_password,
+)
 
 
 class LoginView(APIView):

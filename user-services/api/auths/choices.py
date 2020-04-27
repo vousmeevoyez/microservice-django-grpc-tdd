@@ -1,1 +1,1 @@
-OTP_TYPES = (("REGISTER", "register"),("RESET_PASSWORD", "reset password"))
+OTP_TYPES = (("REGISTER", "register"), ("RESET_PASSWORD", "reset password"))

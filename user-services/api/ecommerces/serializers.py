@@ -2,12 +2,11 @@
     Serializers
     _____________________
 """
-from rest_framework.serializers import (ModelSerializer)
+from rest_framework.serializers import ModelSerializer
 from api.ecommerces.models import Platform, Store, StorePlatform
 
 
 class PlatformSerializer(ModelSerializer):
-
     class Meta:
         model = Platform
         fields = "__all__"
@@ -20,6 +19,7 @@ class StorePlatformSerializer(ModelSerializer):
     class Meta:
         model = StorePlatform
         fields = "__all__"
+
 
 class StoreSerializer(ModelSerializer):
 

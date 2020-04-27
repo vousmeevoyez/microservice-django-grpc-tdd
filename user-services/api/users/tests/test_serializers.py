@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError
 
 from api.users.serializers import *
+
 User = get_user_model()
 
 
@@ -22,7 +23,7 @@ def test_user_registration_serializers():
         "password": "password",
         "shop_name": "my-ol-shop",
         "device_id": "my-device-id",
-        "platform": "MOBILE"
+        "platform": "MOBILE",
     }
 
     serializer = UserRegistrationSerializer(data=request)
@@ -45,7 +46,7 @@ def test_update_password_serializer():
     request = {
         "current_password": "password",
         "new_password": "new_password",
-        "confirm_password": "new_password"
+        "confirm_password": "new_password",
     }
 
     serializer = UpdatePasswordSerializer(data=request)
@@ -54,7 +55,7 @@ def test_update_password_serializer():
     request = {
         "current_password": "password",
         "new_password": "password",
-        "confirm_password": "password"
+        "confirm_password": "password",
     }
 
     with pytest.raises(ValidationError):

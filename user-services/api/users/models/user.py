@@ -1,7 +1,18 @@
-from django.db.models import (Model, CASCADE, SET_NULL, CharField,
-                              DateTimeField, EmailField, URLField, ImageField,
-                              BooleanField, DecimalField, UUIDField,
-                              IntegerField, OneToOneField)
+from django.db.models import (
+    Model,
+    CASCADE,
+    SET_NULL,
+    CharField,
+    DateTimeField,
+    EmailField,
+    URLField,
+    ImageField,
+    BooleanField,
+    DecimalField,
+    UUIDField,
+    IntegerField,
+    OneToOneField,
+)
 
 from django.dispatch import receiver
 from django.db.models.signals import post_save
@@ -45,12 +56,11 @@ class UserManager(BaseUserManager):
 
 class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     """ Extend django base user and add user_type """
+
     username = CharField(max_length=100, unique=True)
     phone_ext = CharField(max_length=3, blank=True)
     phone_no = CharField(max_length=16, unique=True, blank=True)
-    user_type = CharField(choices=USER_TYPES,
-                          default=USER_TYPES[0][0],
-                          max_length=32)
+    user_type = CharField(choices=USER_TYPES, default=USER_TYPES[0][0], max_length=32)
     is_staff = BooleanField(default=False)
     is_active = BooleanField(default=False)
     consumer_id = UUIDField(null=True)
@@ -70,6 +80,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
 
 class Profile(BaseModel):
     """ create user profile """
+
     user = OneToOneField(User, on_delete=CASCADE)
     first_name = CharField(max_length=100, blank=True)
     middle_name = CharField(max_length=100, blank=True)

@@ -4,12 +4,11 @@
 from django.contrib.auth import get_user_model
 from django.db import DatabaseError, transaction
 
-from api.users.models import (Device)
+from api.users.models import Device
 from api.auths.services import OtpService, update_password
 from api.auths.tasks import create_kong_consumer
 
-from api.users.exceptions import (FailedRegistrationException,
-                                  OldMsisdnException)
+from api.users.exceptions import FailedRegistrationException, OldMsisdnException
 
 User = get_user_model()
 
@@ -19,15 +18,10 @@ def create_user(password, phone_ext, phone_no, platform, device_id):
 
     with transaction.atomic():
         try:
-            user = User.objects.create(
-                phone_ext=phone_ext,
-                phone_no=phone_no,
-            )
+            user = User.objects.create(phone_ext=phone_ext, phone_no=phone_no,)
             user.set_password(password)
             user.save()
-            Device.objects.create(platform=platform,
-                                  device_id=device_id,
-                                  user=user)
+            Device.objects.create(platform=platform, device_id=device_id, user=user)
             otp_id = OtpService(user=user).generate_and_send()
         except DatabaseError as error:
             raise FailedRegistrationException(error)

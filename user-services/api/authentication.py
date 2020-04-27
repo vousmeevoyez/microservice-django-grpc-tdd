@@ -13,7 +13,8 @@ class KongAuthentication:
         Override default drf remote authentication, so if
         upstream header is detected automatically authenticate using user id
     """
-    header = 'HTTP_X_CONSUMER_CUSTOM_ID'
+
+    header = "HTTP_X_CONSUMER_CUSTOM_ID"
 
     def authenticate(self, request):
         user_id = request.META.get(self.header)

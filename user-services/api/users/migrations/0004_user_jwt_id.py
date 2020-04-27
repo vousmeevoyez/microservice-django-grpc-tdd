@@ -6,13 +6,11 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('users', '0003_delete_shop'),
+        ("users", "0003_delete_shop"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='jwt_id',
-            field=models.UUIDField(null=True),
+            model_name="user", name="jwt_id", field=models.UUIDField(null=True),
         ),
     ]

@@ -15,6 +15,7 @@ class FailedRegistrationException(APIException):
         if detail is not None:
             self.detail = detail
 
+
 class OldMsisdnException(APIException):
     """ Raised when something tried updating new msisdn using old msisdn """
 

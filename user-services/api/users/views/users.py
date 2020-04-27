@@ -6,13 +6,21 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveUpdateDestroyAPIView
 
-from api.users.serializers import (UserRegistrationSerializer, UserSerializer,
-                                   VerifyUserSerializer, ProfileSerializer,
-                                   UpdatePasswordSerializer,
-                                   UpdateMsisdnSerializer)
+from api.users.serializers import (
+    UserRegistrationSerializer,
+    UserSerializer,
+    VerifyUserSerializer,
+    ProfileSerializer,
+    UpdatePasswordSerializer,
+    UpdateMsisdnSerializer,
+)
 from api.users.models import Profile
-from api.users.services.users import (create_user, verify_user,
-                                      update_user_password, update_phone_no)
+from api.users.services.users import (
+    create_user,
+    verify_user,
+    update_user_password,
+    update_phone_no,
+)
 from api.utils.reusable.serializers import UserOwnViewSet
 
 
@@ -72,15 +80,13 @@ class UserProfileView(RetrieveUpdateDestroyAPIView):
         return serializer_class
 
     def update(self, request, *args, **kwargs):
-        partial = kwargs.pop('partial', False)
+        partial = kwargs.pop("partial", False)
         instance = self.request.user.profile
-        serializer = self.get_serializer(instance,
-                                         data=request.data,
-                                         partial=partial)
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
 
-        if getattr(instance, '_prefetched_objects_cache', None):
+        if getattr(instance, "_prefetched_objects_cache", None):
             # If 'prefetch_related' has been applied to a queryset, we need to
             # forcibly invalidate the prefetch cache on the instance.
             instance._prefetched_objects_cache = {}
@@ -98,8 +104,7 @@ class UpdatePasswordView(APIView):
     def put(self, request):
         serializer = UpdatePasswordSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            update_user_password(self.request.user,
-                                 serializer.data["new_password"])
+            update_user_password(self.request.user, serializer.data["new_password"])
             return Response(status=HTTP_204_NO_CONTENT)
 
 

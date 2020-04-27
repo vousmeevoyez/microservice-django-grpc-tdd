@@ -16,12 +16,12 @@ def test_resend_otp_api(api_client, user):
 
 @pytest.mark.django_db
 @patch("requests.request")
-def test_login_api_success(mock_request, api_client, user,
-                           create_jwt_credential_response):
+def test_login_api_success(
+    mock_request, api_client, user, create_jwt_credential_response
+):
 
     mock_request.return_value.status_code.return_value == 201
-    mock_request.return_value.json.return_value =\
-        create_jwt_credential_response
+    mock_request.return_value.json.return_value = create_jwt_credential_response
 
     url = reverse("auth-login")
     auth_payload = {"username": user.username, "password": "password"}
@@ -63,28 +63,26 @@ def test_request_forgot_password_api_failed(api_client, user):
 
 
 @pytest.mark.django_db
-def test_verify_forgot_password_api_success(api_client, user,
-                                            reset_password_otp):
+def test_verify_forgot_password_api_success(api_client, user, reset_password_otp):
     url = reverse("verify-password")
     payload = {
         "otp_id": reset_password_otp.id,
         "otp_code": "1234",
         "password": "newpassword",
-        "confirm_password": "newpassword"
+        "confirm_password": "newpassword",
     }
     response = api_client.post(url, payload, format="json")
     assert response.status_code == 204
 
 
 @pytest.mark.django_db
-def test_verify_forgot_password_api_failed(api_client, user,
-                                           reset_password_otp):
+def test_verify_forgot_password_api_failed(api_client, user, reset_password_otp):
     url = reverse("verify-password")
     payload = {
         "otp_id": reset_password_otp.id,
         "otp_code": "0000",
         "password": "newpassword",
-        "confirm_password": "newpassword"
+        "confirm_password": "newpassword",
     }
     response = api_client.post(url, payload, format="json")
     assert response.status_code == 422

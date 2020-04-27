@@ -7,8 +7,11 @@ from django.contrib.auth import get_user_model, authenticate
 
 from api.auths.services.otp import OtpService
 from api.utils.external import build_kong_client
-from api.auths.exceptions import (InvalidCredentialsException,
-                                  InactiveUserException, OldPasswordException)
+from api.auths.exceptions import (
+    InvalidCredentialsException,
+    InactiveUserException,
+    OldPasswordException,
+)
 
 User = get_user_model()
 CLIENT = build_kong_client()
@@ -47,7 +50,7 @@ class JWTToken:
             this will also trigger remove generated credentials on API Gateway
             ________________________
         """
-        CLIENT.delete_jwt_credential(self.user.consumer_id)
+        CLIENT.delete_jwt_credential(self.user.consumer_id, self.user.jwt_id)
         # set back jwt id to none
         self.user.jwt_id = None
         self.user.save()
@@ -102,8 +105,7 @@ def request_reset_password(user_id):
         params:
             user_id: str
     """
-    otp_id = OtpService(user_id=user_id,
-                        otp_type="RESET_PASSWORD").generate_and_send()
+    otp_id = OtpService(user_id=user_id, otp_type="RESET_PASSWORD").generate_and_send()
     return {"otp_id": otp_id}
 
 

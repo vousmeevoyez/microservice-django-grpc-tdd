@@ -19,7 +19,6 @@ def encode_content(payload):
 
 
 class RemoteCall:
-
     def __init__(self):
         pass
 
@@ -27,10 +26,7 @@ class RemoteCall:
         try:
             LOGGER.info("URL: %s", url)
             LOGGER.info("DATA: %s", data)
-            r = requests.request(method=method,
-                                 url=url,
-                                 json=data,
-                                 headers=headers)
+            r = requests.request(method=method, url=url, json=data, headers=headers)
             LOGGER.info("STATUS CODE: %s", r.status_code)
             LOGGER.info("RESPONSE: %s", r.text)
             r.raise_for_status()

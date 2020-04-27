@@ -25,8 +25,7 @@ def send_otp(phone_no, phone_ext, otp_code):
     request.content = encode_content({"otp": otp_code})
 
     try:
-        channel = grpc.insecure_channel(
-            settings.EXTERNALS["NOTIFICATION"]["BASE_URL"])
+        channel = grpc.insecure_channel(settings.EXTERNALS["NOTIFICATION"]["BASE_URL"])
         stub = otp_pb2_grpc.OTPServicesStub(channel)
         result = stub.SendSMSOtp(request)
     except grpc.RpcError:

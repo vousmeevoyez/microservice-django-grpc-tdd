@@ -8,8 +8,7 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-from django.db.models import (CASCADE, BooleanField, CharField, DateTimeField,
-                              ForeignKey)
+from django.db.models import CASCADE, BooleanField, CharField, DateTimeField, ForeignKey
 from api.utils.reusable import BaseModel
 from api.auths.choices import OTP_TYPES
 
@@ -20,6 +19,7 @@ class Otp(BaseModel):
     """
         Represent OTP Record
     """
+
     user = ForeignKey(User, on_delete=CASCADE, related_name="otps")
     otp_type = CharField(choices=OTP_TYPES, max_length=100)
     code = CharField(max_length=255)
@@ -50,11 +50,13 @@ class Otp(BaseModel):
         """
         # make sure this no currently not used and generated before
         is_available = True
-        otp = Otp.objects.filter(user=self.user,
-                                 code=hashed_otp_code,
-                                 otp_type=self.otp_type,
-                                 is_verified=False,
-                                 valid_until__gte=datetime.utcnow()).first()
+        otp = Otp.objects.filter(
+            user=self.user,
+            code=hashed_otp_code,
+            otp_type=self.otp_type,
+            is_verified=False,
+            valid_until__gte=datetime.utcnow(),
+        ).first()
         if otp is not None:
             is_available = False
 
@@ -78,7 +80,6 @@ class Otp(BaseModel):
             # end if
         # end whil
         self.code = hashed_otp_code
-        self.valid_until = datetime.utcnow() +\
-            timedelta(minutes=valid_until)
+        self.valid_until = datetime.utcnow() + timedelta(minutes=valid_until)
         self.save()
         return otp_code

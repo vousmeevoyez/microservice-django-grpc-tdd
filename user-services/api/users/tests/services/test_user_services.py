@@ -6,8 +6,11 @@ from django.contrib.auth import get_user_model
 from django.db import DatabaseError
 
 from api.users.services.users import *
-from api.users.exceptions import (FailedRegistrationException,
-                                  UserNotFoundException, OldMsisdnException)
+from api.users.exceptions import (
+    FailedRegistrationException,
+    UserNotFoundException,
+    OldMsisdnException,
+)
 from api.auths.exceptions import InvalidOtpException
 
 

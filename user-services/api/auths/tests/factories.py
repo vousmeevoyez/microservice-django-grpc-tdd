@@ -5,13 +5,13 @@ from random import randint
 from uuid import uuid4
 from datetime import timedelta
 
-from factory import (LazyFunction, DjangoModelFactory, fuzzy, SubFactory, Trait)
+from factory import LazyFunction, DjangoModelFactory, fuzzy, SubFactory, Trait
 
 from django.utils import timezone
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 
-from api.auths.models import (Otp)
+from api.auths.models import Otp
 from api.auths.choices import OTP_TYPES
 
 from api.users.tests.factories import UserFactory

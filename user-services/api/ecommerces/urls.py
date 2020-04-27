@@ -1,7 +1,7 @@
 from django.urls import path
 from rest_framework.routers import Route, SimpleRouter
 
-from api.ecommerces.views import (PlatformViewSet)
+from api.ecommerces.views import PlatformViewSet
 
 router = SimpleRouter()
 router.register(r"platforms", PlatformViewSet)

@@ -5,8 +5,15 @@ from random import randint
 from uuid import uuid4
 from datetime import timedelta
 
-from factory import (LazyFunction, DjangoModelFactory, Faker, fuzzy, SubFactory,
-                     RelatedFactory, post_generation)
+from factory import (
+    LazyFunction,
+    DjangoModelFactory,
+    Faker,
+    fuzzy,
+    SubFactory,
+    RelatedFactory,
+    post_generation,
+)
 
 from django.contrib.auth import get_user_model
 

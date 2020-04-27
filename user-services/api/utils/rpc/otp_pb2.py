@@ -3,145 +3,191 @@
 # source: autogen/otp.proto
 
 import sys
-_b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
+
+_b = sys.version_info[0] < 3 and (lambda x: x) or (lambda x: x.encode("latin1"))
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
 
-
-
 DESCRIPTOR = _descriptor.FileDescriptor(
-  name='autogen/otp.proto',
-  package='',
-  syntax='proto3',
-  serialized_options=None,
-  serialized_pb=_b('\n\x11\x61utogen/otp.proto\"I\n\x11SendSMSOtpRequest\x12\x11\n\tphone_ext\x18\x01 \x01(\t\x12\x10\n\x08phone_no\x18\x02 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x03 \x01(\t\"$\n\x12SendSMSOtpResponse\x12\x0e\n\x06status\x18\x01 \x01(\t2F\n\x0bOTPServices\x12\x37\n\nSendSMSOtp\x12\x12.SendSMSOtpRequest\x1a\x13.SendSMSOtpResponse\"\x00\x62\x06proto3')
+    name="autogen/otp.proto",
+    package="",
+    syntax="proto3",
+    serialized_options=None,
+    serialized_pb=_b(
+        '\n\x11\x61utogen/otp.proto"I\n\x11SendSMSOtpRequest\x12\x11\n\tphone_ext\x18\x01 \x01(\t\x12\x10\n\x08phone_no\x18\x02 \x01(\t\x12\x0f\n\x07\x63ontent\x18\x03 \x01(\t"$\n\x12SendSMSOtpResponse\x12\x0e\n\x06status\x18\x01 \x01(\t2F\n\x0bOTPServices\x12\x37\n\nSendSMSOtp\x12\x12.SendSMSOtpRequest\x1a\x13.SendSMSOtpResponse"\x00\x62\x06proto3'
+    ),
 )
 
 
-
-
 _SENDSMSOTPREQUEST = _descriptor.Descriptor(
-  name='SendSMSOtpRequest',
-  full_name='SendSMSOtpRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='phone_ext', full_name='SendSMSOtpRequest.phone_ext', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='phone_no', full_name='SendSMSOtpRequest.phone_no', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='content', full_name='SendSMSOtpRequest.content', index=2,
-      number=3, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=21,
-  serialized_end=94,
+    name="SendSMSOtpRequest",
+    full_name="SendSMSOtpRequest",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="phone_ext",
+            full_name="SendSMSOtpRequest.phone_ext",
+            index=0,
+            number=1,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=_b("").decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+        ),
+        _descriptor.FieldDescriptor(
+            name="phone_no",
+            full_name="SendSMSOtpRequest.phone_no",
+            index=1,
+            number=2,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=_b("").decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+        ),
+        _descriptor.FieldDescriptor(
+            name="content",
+            full_name="SendSMSOtpRequest.content",
+            index=2,
+            number=3,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=_b("").decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=21,
+    serialized_end=94,
 )
 
 
 _SENDSMSOTPRESPONSE = _descriptor.Descriptor(
-  name='SendSMSOtpResponse',
-  full_name='SendSMSOtpResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='status', full_name='SendSMSOtpResponse.status', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=96,
-  serialized_end=132,
+    name="SendSMSOtpResponse",
+    full_name="SendSMSOtpResponse",
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name="status",
+            full_name="SendSMSOtpResponse.status",
+            index=0,
+            number=1,
+            type=9,
+            cpp_type=9,
+            label=1,
+            has_default_value=False,
+            default_value=_b("").decode("utf-8"),
+            message_type=None,
+            enum_type=None,
+            containing_type=None,
+            is_extension=False,
+            extension_scope=None,
+            serialized_options=None,
+            file=DESCRIPTOR,
+        ),
+    ],
+    extensions=[],
+    nested_types=[],
+    enum_types=[],
+    serialized_options=None,
+    is_extendable=False,
+    syntax="proto3",
+    extension_ranges=[],
+    oneofs=[],
+    serialized_start=96,
+    serialized_end=132,
 )
 
-DESCRIPTOR.message_types_by_name['SendSMSOtpRequest'] = _SENDSMSOTPREQUEST
-DESCRIPTOR.message_types_by_name['SendSMSOtpResponse'] = _SENDSMSOTPRESPONSE
+DESCRIPTOR.message_types_by_name["SendSMSOtpRequest"] = _SENDSMSOTPREQUEST
+DESCRIPTOR.message_types_by_name["SendSMSOtpResponse"] = _SENDSMSOTPRESPONSE
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-SendSMSOtpRequest = _reflection.GeneratedProtocolMessageType('SendSMSOtpRequest', (_message.Message,), {
-  'DESCRIPTOR' : _SENDSMSOTPREQUEST,
-  '__module__' : 'autogen.otp_pb2'
-  # @@protoc_insertion_point(class_scope:SendSMSOtpRequest)
-  })
+SendSMSOtpRequest = _reflection.GeneratedProtocolMessageType(
+    "SendSMSOtpRequest",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SENDSMSOTPREQUEST,
+        "__module__": "autogen.otp_pb2"
+        # @@protoc_insertion_point(class_scope:SendSMSOtpRequest)
+    },
+)
 _sym_db.RegisterMessage(SendSMSOtpRequest)
 
-SendSMSOtpResponse = _reflection.GeneratedProtocolMessageType('SendSMSOtpResponse', (_message.Message,), {
-  'DESCRIPTOR' : _SENDSMSOTPRESPONSE,
-  '__module__' : 'autogen.otp_pb2'
-  # @@protoc_insertion_point(class_scope:SendSMSOtpResponse)
-  })
+SendSMSOtpResponse = _reflection.GeneratedProtocolMessageType(
+    "SendSMSOtpResponse",
+    (_message.Message,),
+    {
+        "DESCRIPTOR": _SENDSMSOTPRESPONSE,
+        "__module__": "autogen.otp_pb2"
+        # @@protoc_insertion_point(class_scope:SendSMSOtpResponse)
+    },
+)
 _sym_db.RegisterMessage(SendSMSOtpResponse)
 
 
-
 _OTPSERVICES = _descriptor.ServiceDescriptor(
-  name='OTPServices',
-  full_name='OTPServices',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  serialized_start=134,
-  serialized_end=204,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='SendSMSOtp',
-    full_name='OTPServices.SendSMSOtp',
+    name="OTPServices",
+    full_name="OTPServices",
+    file=DESCRIPTOR,
     index=0,
-    containing_service=None,
-    input_type=_SENDSMSOTPREQUEST,
-    output_type=_SENDSMSOTPRESPONSE,
     serialized_options=None,
-  ),
-])
+    serialized_start=134,
+    serialized_end=204,
+    methods=[
+        _descriptor.MethodDescriptor(
+            name="SendSMSOtp",
+            full_name="OTPServices.SendSMSOtp",
+            index=0,
+            containing_service=None,
+            input_type=_SENDSMSOTPREQUEST,
+            output_type=_SENDSMSOTPRESPONSE,
+            serialized_options=None,
+        ),
+    ],
+)
 _sym_db.RegisterServiceDescriptor(_OTPSERVICES)
 
-DESCRIPTOR.services_by_name['OTPServices'] = _OTPSERVICES
+DESCRIPTOR.services_by_name["OTPServices"] = _OTPSERVICES
 
 # @@protoc_insertion_point(module_scope)

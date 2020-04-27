@@ -4,8 +4,11 @@ from faker import Faker
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError
 
-from api.auths.serializers import (LoginSerializer, ForgotPasswordSerializer,
-                                   VerifyOtpSerializer)
+from api.auths.serializers import (
+    LoginSerializer,
+    ForgotPasswordSerializer,
+    VerifyOtpSerializer,
+)
 
 User = get_user_model()
 
@@ -27,7 +30,7 @@ def test_forgot_password_serializer():
         "otp_id": "otp_id",
         "otp_code": "1234",
         "password": "password",
-        "confirm_password": "password"
+        "confirm_password": "password",
     }
 
     serializer = ForgotPasswordSerializer(data=request)
@@ -37,7 +40,7 @@ def test_forgot_password_serializer():
         "otp_id": "",
         "otp_code": "adasdasads",
         "password": "",
-        "confirm_password": ""
+        "confirm_password": "",
     }
 
     with pytest.raises(ValidationError):

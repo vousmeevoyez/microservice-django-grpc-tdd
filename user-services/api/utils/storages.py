@@ -11,6 +11,7 @@ class MediaRootS3Boto3Storage(S3Boto3Storage):
     location = "media"
     file_overwrite = False
 
+
 class StaticRootGoogleCloudStorage(GoogleCloudStorage):
     location = "static"
     default_acl = "publicRead"
