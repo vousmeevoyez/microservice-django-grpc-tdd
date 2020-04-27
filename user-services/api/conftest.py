@@ -1,8 +1,16 @@
 import pytest
+from django.core.management import call_command
 from factory import build
 
-from api.users.tests.factories import (UserFactory, DeviceFactory, ShopFactory)
+from api.users.tests.factories import (UserFactory, DeviceFactory)
+from api.ecommerces.tests.factories import (StoreFactory)
 from api.auths.tests.factories import OtpFactory
+
+
+@pytest.fixture(scope='session')
+def django_db_setup(django_db_setup, django_db_blocker):
+    with django_db_blocker.unblock():
+        call_command('loaddata', 'api/ecommerces/fixtures/platform.json')
 
 
 @pytest.fixture
@@ -18,18 +26,18 @@ def user():
 
 
 @pytest.fixture
-def device():
-    return DeviceFactory()
-
-
-@pytest.fixture
-def shop():
-    return ShopFactory()
-
-
-@pytest.fixture
 def otp():
     return OtpFactory(is_register=True)
+
+
+@pytest.fixture
+def reset_password_otp():
+    return OtpFactory(is_register=False, is_reset_password=True)
+
+
+@pytest.fixture
+def store():
+    return StoreFactory()
 
 
 @pytest.fixture
@@ -39,10 +47,10 @@ def registration_payload():
     # we do it like this because otherwise there's error
     user_payload["password"] = "password"
 
-    shop_payload = build(dict, FACTORY_CLASS=ShopFactory)
-    shop_payload.pop("user")
-    shop_payload["shop_name"] = shop_payload["name"]
-    shop_payload.pop("name")
+    #shop_payload = build(dict, FACTORY_CLASS=ShopFactory)
+    #shop_payload.pop("user")
+    #shop_payload["shop_name"] = shop_payload["name"]
+    #shop_payload.pop("name")
 
     device_payload = build(dict, FACTORY_CLASS=DeviceFactory)
     device_payload.pop("user")
@@ -52,7 +60,7 @@ def registration_payload():
     payload = {
         **user_payload,
         **device_payload,
-        **shop_payload,
+        #**shop_payload,
         # "user_type": "MERCHANT"
     }
     return payload

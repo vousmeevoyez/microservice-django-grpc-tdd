@@ -6,11 +6,11 @@ from uuid import uuid4
 from datetime import timedelta
 
 from factory import (LazyFunction, DjangoModelFactory, Faker, fuzzy, SubFactory,
-                     post_generation)
+                     RelatedFactory, post_generation)
 
 from django.contrib.auth import get_user_model
 
-from api.users.models import (Device, Shop)
+from api.users.models import Device
 from api.users.choices import SUPPORTED_PLATFORMS
 
 User = get_user_model()
@@ -48,12 +48,3 @@ class DeviceFactory(DjangoModelFactory):
 
     class Meta:
         model = Device
-
-
-class ShopFactory(DjangoModelFactory):
-
-    user = SubFactory(UserFactory)
-    name = Faker("company")
-
-    class Meta:
-        model = Shop

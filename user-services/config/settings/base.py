@@ -70,6 +70,7 @@ THIRD_PARTY_APPS = ["rest_framework", "django_celery_results"]
 LOCAL_APPS = [
     "api.auths",
     "api.users",
+    "api.ecommerces",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -111,12 +112,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "api.middleware.KongGatewayHeaderMiddleware",
 ]
 
 AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'django.contrib.auth.backends.RemoteUserBackend',
+    "django.contrib.auth.backends.RemoteUserBackend",
+    "django.contrib.auth.backends.ModelBackend",
 ]
 
 # STATIC
@@ -220,7 +220,7 @@ if USE_TZ:
     CELERY_TIMEZONE = TIME_ZONE
 
 CELERY_BROKER_URL = env("CELERY_BROKER_URL")
-CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = "django-db"
 # CELERY_ACCEPT_CONTENT = ["json"]
 # CELERY_TASK_SERIALIZER = "json"
 # CELERY_RESULT_SERIALIZER = "json"
@@ -233,7 +233,8 @@ CELERY_RESULT_BACKEND = 'django-db'
 # django-rest-framework - https://www.django-rest-framework.org/api-guide/settings/
 REST_FRAMEWORK = {
     "EXCEPTION_HANDLER": "api.utils.exceptions.custom_exception_handler",
-    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',)
+    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "DEFAULT_AUTHENTICATION_CLASSES": ["api.authentication.KongAuthentication"]
 }
 # Your stuff...
 # ------------------------------------------------------------------------------

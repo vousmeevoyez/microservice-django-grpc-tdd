@@ -2,12 +2,13 @@
     Auth Services
 """
 import jwt
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model, authenticate
 
 from api.auths.services.otp import OtpService
 from api.utils.external import build_kong_client
 from api.auths.exceptions import (InvalidCredentialsException,
-                                  InactiveUserException)
+                                  InactiveUserException, OldPasswordException)
 
 User = get_user_model()
 CLIENT = build_kong_client()
@@ -114,4 +115,13 @@ def reset_password(otp_id, otp_code, password, **ignore):
     # set new password for user
     user = otp.user
     user.set_password(password)
+    user.save()
+
+
+def update_password(user, new_password):
+    """ set new password for user """
+    if user.check_password(new_password):
+        raise OldPasswordException
+
+    user.set_password(new_password)
     user.save()

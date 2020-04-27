@@ -1,6 +1,7 @@
 """
     Auth Task
 """
+import logging
 from django.conf import settings
 from django.contrib.auth import get_user_model
 import grpc
@@ -11,6 +12,8 @@ from api.utils.utility import encode_content
 from api.utils.external import build_kong_client
 from api.utils.rpc import otp_pb2, otp_pb2_grpc
 from api.utils.exceptions import RemoteCallException
+
+LOGGER = logging.getLogger(__name__)
 
 
 @celery_app.task()
@@ -37,7 +40,8 @@ def create_kong_consumer(user_id):
     try:
         kong_client = build_kong_client()
         response = kong_client.create_consumer(user_id)
-    except RemoteCallException:
+    except RemoteCallException as error:
+        LOGGER.warning("error : %s", error)
         create_kong_consumer.retry()
     else:
         # get user object

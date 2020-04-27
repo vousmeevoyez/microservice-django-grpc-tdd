@@ -38,4 +38,4 @@ class OtpFactory(DjangoModelFactory):
 
     class Params:
         is_register = Trait(otp_type=OTP_TYPES[0][0])
-        is_forgot_password = Trait(otp_type=OTP_TYPES[1])
+        is_reset_password = Trait(otp_type=OTP_TYPES[1][0])

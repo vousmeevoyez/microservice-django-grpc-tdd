@@ -27,17 +27,6 @@ class InactiveUserException(APIException):
             self.detail = detail
 
 
-class OldPasswordException(APIException):
-    """ Raised when user try update their password using old password """
-
-    status_code = 401
-    detail = "OLD_PASSWORD"
-
-    def __init__(self, detail=None):
-        if detail is not None:
-            self.detail = detail
-
-
 class OtpNotFoundException(APIException):
     """ Raised when otp is not found """
 

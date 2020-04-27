@@ -1,0 +1,65 @@
+[
+    {
+        "model": "ecommerces.Platform",
+        "pk": 1,
+        "fields": {
+            "key": "TOKOPEDIA",
+            "description": "Tokopedia",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ecommerces.Platform",
+        "pk": 2,
+        "fields": {
+            "key": "BUKALAPAK",
+            "description": "Bukalapak",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ecommerces.Platform",
+        "pk": 3,
+        "fields": {
+            "key": "LAZADA",
+            "description": "Lazada",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ecommerces.Platform",
+        "pk": 4,
+        "fields": {
+            "key": "BLIBLI",
+            "description": "Blibli",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ecommerces.Platform",
+        "pk": 5,
+        "fields": {
+            "key": "SHOPEE",
+            "description": "Shopee",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ecommerces.Platform",
+        "pk": 6,
+        "fields": {
+            "key": "OLX",
+            "description": "Olx",
+            "is_active": true
+        }
+    },
+    {
+        "model": "ecommerces.Platform",
+        "pk": 7,
+        "fields": {
+            "key": "JDID",
+            "description": "JD.ID",
+            "is_active": true
+        }
+    }
+]
