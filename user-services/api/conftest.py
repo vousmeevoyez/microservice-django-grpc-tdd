@@ -81,10 +81,15 @@ def create_consumer_response():
 @pytest.fixture
 def create_jwt_credential_response():
     response = {
-        "consumer_id": "7bce93e1-0a90-489c-c887-d385545f8f4b",
-        "created_at": 1442426001000,
-        "id": "bcbfb45d-e391-42bf-c2ed-94e32946753a",
-        "key": "a36c3049b36249a3c9f8891cb127243c",
-        "secret": "e71829c351aa4242c2719cbfbe671c09"
+        "rsa_public_key": None,
+        "created_at": 1587997789,
+        "consumer": {
+            "id": "f0bdab23-0cb3-48b0-bb67-2569cbb36254"
+        },
+        "id": "9a3f13a2-2aeb-4a2f-9ebc-0d0e92671a7a",
+        "tags": None,
+        "key": "TewK65ew8ky4hyhvqXimLfnUUyqCu7zc",
+        "secret": "AMvqOueQFEkBSKtY5dAo5rOvP9WlWpbr",
+        "algorithm": "HS256"
     }
     return response

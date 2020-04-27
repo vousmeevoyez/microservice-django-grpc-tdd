@@ -54,6 +54,7 @@ class User(BaseModel, AbstractBaseUser, PermissionsMixin):
     is_staff = BooleanField(default=False)
     is_active = BooleanField(default=False)
     consumer_id = UUIDField(null=True)
+    jwt_id = UUIDField(null=True)
 
     objects = UserManager()
 

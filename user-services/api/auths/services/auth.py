@@ -36,6 +36,9 @@ class JWTToken:
             "iat": response["created_at"],
             "sub": str(self.user.id),
         }
+        # set jwt id
+        self.user.jwt_id = response["id"]
+        self.user.save()
         return jwt.encode(payload, response["secret"], algorithm)
 
     def remove(self):
@@ -45,6 +48,9 @@ class JWTToken:
             ________________________
         """
         CLIENT.delete_jwt_credential(self.user.consumer_id)
+        # set back jwt id to none
+        self.user.jwt_id = None
+        self.user.save()
 
 
 def login(username, password):
