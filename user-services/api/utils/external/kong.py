@@ -38,6 +38,6 @@ class KongAPI:
 
     def delete_jwt_credential(self, consumer_id, jwt_id):
         """ delete jwt for consumer """
-        url = BASE_URL + ENDPOINTS["JWT"].format(consumer_id, jwt_id)
+        url = BASE_URL + ENDPOINTS["JWT_DETAIL"].format(consumer_id, jwt_id)
         status_code, response = self._execute("DELETE", url)
         return status_code
