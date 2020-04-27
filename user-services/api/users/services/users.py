@@ -6,6 +6,7 @@ from django.db import DatabaseError, transaction
 
 from api.users.models import (Device)
 from api.auths.services import OtpService, update_password
+from api.auths.tasks import create_kong_consumer
 
 from api.users.exceptions import (FailedRegistrationException,
                                   OldMsisdnException)
@@ -43,6 +44,7 @@ def verify_user(otp_id, otp_code):
     user.is_active = True
     user.save()
     # after that we trigger generate kong consumer
+    create_kong_consumer.delay(user_id)
 
 
 def update_phone_no(user, phone_ext, phone_no):

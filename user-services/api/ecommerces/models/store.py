@@ -33,3 +33,14 @@ class StorePlatform(BaseModel):
     """
     store = ForeignKey(Store, on_delete=CASCADE, related_name="store_platforms")
     platform = ForeignKey(Platform, on_delete=CASCADE)
+
+
+class Credential(Model):
+    """
+        Represent Ecommerce Credential
+    """
+    user = ForeignKey(user, on_delete=CASCADE, related_name="credentials")
+    username = CharField(max_length=255)
+    password = CharField(max_length=255)
+    platform = ForeignKey(StorePlatform, on_delete=CASCADE, related_name="platform_credentials")
+    is_active = BooleanField(default=True)
